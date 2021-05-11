@@ -46,96 +46,137 @@ class _IntroScreenState extends State<IntroScreen> {
         },
         child: SafeArea(
           child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Colors.green, Colors.teal, Colors.green],
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft)),
             width: double.infinity,
             padding: EdgeInsets.symmetric(horizontal: 24.0),
-            color: Colors.white,
             child: Stack(
               children: [
-                ListView(
-                  children: <Widget>[
-                    Column(
+                Center(
+                  child: SingleChildScrollView(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
-                          children: [
-                            Image.asset('assets/images/logo_2.png'),
-                            Text(
-                              "Welcome to Do-It!",
-                              style: TextStyle(
-                                color: Colors.green,
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 24.0),
-                              child: Form(
-                                key: _formkey,
-                                child: Column(
-                                  children: [
-                                    TextFormField(
-                                      onChanged: (value) {
-                                        _username = value.trim();
-                                      },
-                                      decoration: InputDecoration(
-                                        hintText:
-                                            'Enter your name for a personalized experience!',
-                                      ),
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                        color: Colors.green,
-                                      ),
-                                      validator: (_username) =>
-                                          _username.trim().isEmpty
-                                              ? 'Please enter your name'
-                                              : null,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 24.0),
-                                      child: TextButton.icon(
-                                        onPressed: () {
-                                          _submit();
-                                        },
-                                        label: Text(
-                                          'Save Username',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        icon: Icon(
-                                          Icons.account_circle_rounded,
-                                          color: Colors.white,
-                                        ),
-                                        style: TextButton.styleFrom(
-                                          backgroundColor: Colors.green,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                        Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0)),
+                          color: Color(0xFFF3F3F3),
+                          child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                  "WELCOME  TO  DO-IT!",
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 30.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 24.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Start off by saving your username. Then click on the green home button. To create a task from the homepage, click on the green add icon.",
-                                    style: TextStyle(
-                                        fontSize: 18.0, color: Colors.grey),
+                                Image.asset('assets/images/logo_3.png'),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 24.0),
+                                  child: Form(
+                                    key: _formkey,
+                                    child: Column(
+                                      children: [
+                                        TextFormField(
+                                          onChanged: (value) {
+                                            _username = value.trim();
+                                          },
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                'Enter your name for a personalized experience!',
+                                          ),
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            color: Colors.green,
+                                          ),
+                                          validator: (_username) =>
+                                              _username.trim().isEmpty
+                                                  ? 'Please enter your name'
+                                                  : null,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 24.0),
+                                          child: ElevatedButton.icon(
+                                            onPressed: () {
+                                              _submit();
+                                            },
+                                            label: Text(
+                                              'Save Username',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            icon: Icon(
+                                              Icons.account_circle_rounded,
+                                              color: Colors.white,
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              shape: new RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      new BorderRadius.circular(
+                                                          15.0)),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Text(
-                                    "To update or delete a task click on the task card and follow the prompts. Have fun accomplishsing your tasks, wohoo!",
-                                    style: TextStyle(
-                                        fontSize: 18.0, color: Colors.grey),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 24.0),
+                                  child: Column(
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                            text:
+                                                'Start off by saving your username. ',
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 16.0),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  text: 'To create a task ',
+                                                  style: TextStyle(
+                                                      color: Colors.green,
+                                                      fontSize: 16.0)),
+                                              TextSpan(
+                                                  text:
+                                                      'from the homepage, click on the add icon.',
+                                                  style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 16.0)),
+                                              TextSpan(
+                                                  text:
+                                                      '\nTo update or delete a task, ',
+                                                  style: TextStyle(
+                                                      color: Colors.deepOrange,
+                                                      fontSize: 16.0)),
+                                              TextSpan(
+                                                  text:
+                                                      'click on the task card and follow the prompts. Have fun in accomplishing your daily tasks, wohoo! ',
+                                                  style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 16.0))
+                                            ]),
+                                      )
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),

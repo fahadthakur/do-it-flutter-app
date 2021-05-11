@@ -42,6 +42,12 @@ Future main() async {
 
   await UserSimplePreferences.init();
   runApp(MyApp());
+
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+        statusBarColor: Colors.black,
+        statusBarIconBrightness: Brightness.light),
+  );
 }
 
 class MyApp extends StatelessWidget {
