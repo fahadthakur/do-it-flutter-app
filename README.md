@@ -12,6 +12,9 @@ When a task has been completed, users can then delete the task from the task pag
 
 This is my very first Flutter Application. So all this is still a big learning curve for me. And i hope to improve on the design and UI soon in the future :)
 
+### Version 1.2.0
+- Added fucntionality to delete a to-do checklist
+- Added functionality to change username which is diplayed on the homepage
 
 ### Version 1.1.0
 - Made major UI changes to give the application a minimalistic look and feel, in order to improve the user experience.
