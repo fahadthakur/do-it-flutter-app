@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:todo_app/database_helper.dart';
+import 'package:todo_app/screens/nameEdit.dart';
 import 'package:todo_app/screens/taskpage.dart';
 import 'package:todo_app/slide_nav.dart';
 import 'package:todo_app/user_simple_preferences.dart';
@@ -20,6 +21,10 @@ class _HomepageState extends State<Homepage> {
   ScrollController _scrollController = new ScrollController();
 
   String username = '';
+
+  void _updateName() {
+    username = UserSimplePreferences.getUsername();
+  }
 
   @override
   void initState() {
@@ -67,6 +72,26 @@ class _HomepageState extends State<Homepage> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          HapticFeedback.vibrate();
+                          Route route = SlideNav(
+                            widget: NameEditScreen(editName: _updateName),
+                          );
+                          Navigator.push(context, route).then((value) {
+                            setState(() {});
+                          });
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.edit_rounded,
+                              color: Colors.white,
+                            ),
+                            Text('Edit', style: TextStyle(color: Colors.white))
+                          ],
                         ),
                       ),
                     ],
