@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/screens/taskpage.dart';
 
 import 'database_helper.dart';
+import 'models/task.dart';
 
 class TaskCardWidget extends StatelessWidget {
   final String title;
@@ -65,8 +67,10 @@ class TodoWidget extends StatefulWidget {
   final String text;
   final int id;
   bool isDone;
+  final update;
 
-  TodoWidget({Key key, this.text, this.isDone, this.id}) : super(key: key);
+  TodoWidget({Key key, this.text, this.isDone, this.id, this.update})
+      : super(key: key);
   @override
   _TodoWidgetState createState() => _TodoWidgetState();
 }
@@ -79,6 +83,7 @@ class _TodoWidgetState extends State<TodoWidget> {
     String text = widget.text;
     bool isDone = widget.isDone;
     int id = widget.id;
+    Function update = widget.update;
 
     return ListTile(
       title: Text(
@@ -101,6 +106,15 @@ class _TodoWidgetState extends State<TodoWidget> {
         value: isDone ?? false,
         activeColor: Theme.of(context).primaryColor,
       ),
+      trailing: IconButton(
+          icon: Icon(
+            Icons.delete_forever_rounded,
+            color: Colors.red,
+          ),
+          onPressed: () async {
+            await _dbHelper.deleteTodo(id);
+            update();
+          }),
     );
   }
 }

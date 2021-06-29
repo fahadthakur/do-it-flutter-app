@@ -123,6 +123,10 @@ class _TaskpageState extends State<Taskpage> {
     }
   }
 
+  void _update() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -412,6 +416,7 @@ class _TaskpageState extends State<Taskpage> {
                                           ? false
                                           : true,
                                       id: snapshot.data[index].id,
+                                      update: _update,
                                     ),
                                   );
                                 },
@@ -429,12 +434,10 @@ class _TaskpageState extends State<Taskpage> {
                     bottom: 0.0,
                     right: 0.0,
                     child: GestureDetector(
-                      onTap: () async {
+                      onTap: () {
                         if (_taskid != 0) {
                           HapticFeedback.vibrate();
-                          await _dbHelper.deleteTask(_taskid);
-                          await flutterLocalNotificationsPlugin.cancel(_taskid);
-                          Navigator.pop(context);
+                          _showDialog();
                         }
                       },
                       child: Container(
@@ -478,6 +481,44 @@ class _TaskpageState extends State<Taskpage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete Task?'),
+          content: Text('This action cannot be undone.'),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+              style: ElevatedButton.styleFrom(
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(15.0)),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await _dbHelper.deleteTask(_taskid);
+                await flutterLocalNotificationsPlugin.cancel(_taskid);
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              child: Text('Delete'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.red,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(15.0)),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
